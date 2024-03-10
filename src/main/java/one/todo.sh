@@ -56,16 +56,36 @@ search() {
 
 
 
-case "$1" in
-    "add") add_task "$2" ;;
-    "show-todo") show_todo ;;
-    "complete") complete_task "$2" ;;
-    "show-done") show_done ;;
-    "delete") delete_task "$2" ;;
-    "show-deleted") show_deleted ;;
-    "search") search "$2" "$3" ;;
-    *) echo "Usage: $0 {add | show-todo | complete | show-done | delete | show-deleted | search}" ;;
-esac
-
-echo "Press any key to exit..."
-read -n 1 -s -r
+PS3="Please select an option: "
+options=("Add tasks" "Show tasks todo" "Complete task" "Show done tasks" "Delete task" "Show deleted task" "Search" "Quit")
+select opt in "${options[@]}"; do
+    case $opt in
+       "Add tasks")
+          add_task
+            ;;
+        "Show tasks todo")
+          show_todo
+            ;;
+        "Complete task")
+          complete_task
+            ;;
+        "Show done tasks")
+          show_done
+            ;;
+        "Delete task")
+          delete_task
+            ;;
+        "Show deleted task")
+          show_deleted
+            ;;
+        "Search")
+          search
+            ;;
+        "Quit")
+          break
+            ;;
+        *)
+            echo "Invalid option"
+            ;;
+    esac
+done
